@@ -6,14 +6,14 @@ import subprocess
 
 
 if __name__ == '__main__':
-    '''
+
     parser = ArgumentParser()
     parser.add_argument("--train_data", type=str,
                         default='./data/SemEval2010_task8_all_data/SemEval2010_task8_training/TRAIN_FILE.TXT')
     parser.add_argument("--test_data", type=str,
                         default='./data/SemEval2010_task8_all_data/SemEval2010_task8_testing_keys/TEST_FILE_FULL.TXT')
     parser.add_argument("--num_classes", type=int, default=19, help='number of relation classes')
-    parser.add_argument("--batch_size", type=int, default=32, help="Training batch size")
+    parser.add_argument("--batch_size", type=int, default=64, help="Training batch size")
     parser.add_argument("--gradient_acc_steps", type=int, default=2, help="No. of steps of gradient accumulation")
     parser.add_argument("--max_norm", type=float, default=1.0, help="Clipped gradient norm")
     parser.add_argument("--num_epochs", type=int, default=30, help="No of epochs")
@@ -35,3 +35,4 @@ if __name__ == '__main__':
     ], stdout=subprocess.PIPE)
     for line in str(process.communicate()[0].decode("utf-8")).split("\\n"):
         print(line)
+    '''

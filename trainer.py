@@ -110,6 +110,7 @@ def infer(Rmodel, test_loader, save=False):
         ], stdout=subprocess.PIPE)
         for line in str(process.communicate()[0].decode("utf-8")).split("\\n"):
             print(line)
+            logger.info(line)
     return results
 
 

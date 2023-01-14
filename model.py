@@ -26,7 +26,11 @@ class BertForRE(nn.Module):
             else:
                 print("[FREE]: %s" % name)
                 param.requires_grad = True
+
         self.fc = nn.Linear(768 * 2, args.num_classes)
+        # 线型层 参数初始化
+        nn.init.xavier_normal_(self.fc.weight)
+        nn.init.constant_(self.fc.bias, 0.)
 
     def forward(self, input, e1_e2_start, token_type_ids, attention_mask):
         out = self.bert(input, token_type_ids=token_type_ids, attention_mask=attention_mask)[0]
@@ -35,8 +39,8 @@ class BertForRE(nn.Module):
             a = out[i, :, :]
             e1 = e1_e2_start[i, 0]
             e2 = e1_e2_start[i, 1]
-            b = torch.cat((a[e1], a[e2]), 0)
+            b = torch.tanh(torch.cat((a[e1], a[e2]), 0))
             output1[i] = b
 
-        output = self.fc(output1)
+        output = torch.log_softmax(self.fc(output1), dim=-1)
         return output
